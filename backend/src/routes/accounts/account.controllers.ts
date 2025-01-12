@@ -27,6 +27,20 @@ export const addAccountController = async (req: Request, res: Response) => {
     const { accountId, introducerId } = req.body; // Destructure request body
     let beneficiaryId: number;
 
+    const existedAccount = await db
+      .select()
+      .from(accountsTable)
+      .where(eq(accountsTable.accountId, accountId));
+
+    if (existedAccount) {
+      throw new Error("already account exists");
+      return res.status(404).json({
+        success: false,
+        message:
+          "This account already existed in database please try again with another account id",
+      });
+    }
+
     if (introducerId === 0) {
       beneficiaryId = 0; // No beneficiary for the first account
     } else {
@@ -67,11 +81,11 @@ export const addAccountController = async (req: Request, res: Response) => {
       message: "Account added successfully!",
       beneficiaryId: beneficiaryId,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error adding account:", error);
     res.status(500).json({
       success: false,
-      message: "Something went wrong while adding the account.",
+      message: error?.message,
     });
   }
 };

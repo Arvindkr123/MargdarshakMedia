@@ -13,13 +13,16 @@ const useAddAccountApiCall = () => {
       const response = await axios.post('http://localhost:4000/accounts', inputData);
       setData(response.data);
     } catch (err) {
-      setError('Failed to add account');
+      console.log(err.response.data.message)
+      setError(err.response.data.message);
     } finally {
       setLoading(false);
     }
   };
 
-  return { addAccount, loading, error, data };
+
+
+  return { addAccount, loading, error, data, setError };
 };
 
 export default useAddAccountApiCall;

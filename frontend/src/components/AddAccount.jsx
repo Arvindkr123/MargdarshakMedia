@@ -39,6 +39,7 @@ const AddAccount = () => {
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
       <h1 className="text-2xl font-bold text-center mb-6">Add Account</h1>
+      {error && <h4 className="text-red-500 bg-black p-4">{error}</h4>}
       <form onSubmit={onSubmitHandler}>
         <div className="mb-4">
           <label
