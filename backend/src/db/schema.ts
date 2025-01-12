@@ -1,3 +1,3 @@
-import * as productSchema from "./accountSchema";
+import * as accountSchema from "./accountSchema";
 
-export default {...productSchema};
+export default { ...accountSchema };
